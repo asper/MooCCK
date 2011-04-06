@@ -22,3 +22,33 @@ header h1 {
 article h1 {
     font-size: 1.5em;
 }
+
+/*
+<div class="moo_cck">
+    <div class="module module_name">
+        <div class="module_content">
+            <!-- Module Html/Form -->
+        </div>
+        <p class="module_links">
+            <a href="#" class="switch_mode">Switch mode</a>
+            <a href="#" class="html">Preview</a>
+            <a href="#" class="form">Form</a>
+            <a href="#" class="delete">Delete module</a>
+            <a href="#" class="drag">Move</a>
+        </p>
+    </div>
+    <!-- Other modules ... -->
+    <p class="cck_links">
+        <a href="#" class="switch_mode">Switch mode</a>
+        <a href="#" class="html">Preview</a>
+        <a href="#" class="form">Form</a>
+        <a href="#" class="delete">Delete all</a>
+    </p>
+</div>
+*/
+
+.MooCCK_Module {
+    padding: 10px;
+    border: 1px dashed #ccc;
+    margin: 0 0 10px 0;
+}
