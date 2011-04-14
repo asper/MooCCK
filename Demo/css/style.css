@@ -22,6 +22,12 @@ header h1 {
 article h1 {
     font-size: 1.5em;
 }
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0 0 0.75em 0;
+}
+p {
+    margin: 0 0 0.1.5em 0;
+}
 
 /*
 <div class="moo_cck">
@@ -47,8 +53,92 @@ article h1 {
 </div>
 */
 
-.MooCCK_Module {
+.moo_cck {
+    position: relative;
+}
+.moo_cck:hover {
+    outline: 1px dashed #ccc;
+}
+.moo_cck .cck_links {
+    height: 20px;
+}
+.moo_cck .cck_links,
+.moo_cck .module_links{
+    margin: 0;
+    opacity: 0.5;
+}
+.moo_cck .module .module_links:hover,
+.moo_cck .cck_links:hover {
+    opacity: 1;
+}
+
+.moo_cck .module {
+    position: relative;
+}
+.moo_cck .module:hover {
+    outline: 1px dashed red;
+}
+.moo_cck .module_links {
+    top: 0;
+    right: 0;
+    position: absolute;
+    display: none;
+}
+.moo_cck .module:hover .module_links {
+    display: block;
+}
+
+.moo_cck .module_links a,
+.moo_cck .cck_links a{
+    display: block;
+    width: 16px;
+    float: right;
+    overflow: hidden;
+    text-indent: 20px;
+    background-color: #eee;
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    font-size: 0.7em;
+    color: #666;
+    margin-left: 5px;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+.moo_cck .module_links a:hover,
+.moo_cck .cck_links a:hover {
+    width: auto;
+}
+.moo_cck a.switch_mode {
+    background-image: url(../img/icons/arrow_switch.png);
+}
+.moo_cck a.html {
+    background-image: url(../img/icons/html.png);
+}
+.moo_cck a.form {
+    background-image: url(../img/icons/application_form_edit.png);
+}
+.moo_cck a.delete {
+    background-image: url(../img/icons/application_form_delete.png);
+}
+.moo_cck a.add {
+    background-image: url(../img/icons/application_form_add.png);
+}
+
+.moo_cck .form {
+    margin: 0 0 0.75em 0;
     padding: 10px;
-    border: 1px dashed #ccc;
-    margin: 0 0 10px 0;
+    background: #f9f9f9;
+}
+.moo_cck .form div.input {
+    margin-bottom: 0.75em;
+}
+.moo_cck .form label {
+    display: block;
+}
+.moo_cck .form input[type=text],
+.moo_cck .form textarea{
+    width: 80%;
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 16px;
 }

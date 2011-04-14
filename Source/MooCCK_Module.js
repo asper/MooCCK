@@ -23,31 +23,46 @@ var MooCCK_Module = new Class({
     html: function(){
         return new Element('div');
     },
-    wrappper: function( moduleElement ){
-        this.element = new Element('div', {
-            'class': 'module '+this.options.type.hyphenate().replace('-', '_').substr(1)
-        });
+    wrappper: function( moduleElement, options ){
+        options = Object.merge({
+            'class': null
+        }, options);
+        var classSuffix = 'module ' + this.options.mode + ' ' + this.options.type.hyphenate().replace('-', '_').substr(1);
+        options['class'] = options['class'] ? options['class']+' '+classSuffix : classSuffix;
+        this.element = new Element('div', options);
         moduleElement.inject(this.element);
         this.element.store('module', this);
         var moduleLinks = new Element('p', {
             'class': 'module_links'
         });
-        this.switchLink('Switch').inject(moduleLinks);
-        this.switchLink('HTML', 'html').inject(moduleLinks);
-        this.switchLink('Form', 'form').inject(moduleLinks);
+        this.switchLink('Switch', {
+            cssClass: 'switch_mode'
+        }).inject(moduleLinks);
+        this.switchLink('HTML', {
+            mode: 'html',
+            cssClass: 'html'
+        }).inject(moduleLinks);
+        this.switchLink('Form', {
+            mode: 'form',
+            cssClass: 'form'
+        }).inject(moduleLinks);
         moduleLinks.inject(this.element);
         return this.element;
     },
-    switchLink: function(text, mode){
-        text = [text, 'Switch'].pick();
-        mode = [mode, null].pick();
+    switchLink: function(text, options){
+        options = Object.merge({
+            mode: null,
+            cssClass: null
+        }, options);
+        text = [text, 'Switch all'].pick();
         return new Element('a', {
             text: text,
             href: '#',
+            'class': options.cssClass,
             events: {
                 click: function(e){
                     e.preventDefault();
-                    this.switchMode(mode);
+                    this.switchMode(options.mode);
                 }.bind(this)
             }
         });
@@ -69,5 +84,53 @@ var MooCCK_Module = new Class({
         var options = this.options;
         delete this.options.mode;
         return this.options;
+    },
+    text: function(label, optionKey, options){
+        var input = new Element('input', Object.merge({
+            type: 'text',
+            events: {
+                keyup: function(){
+                    this.options[optionKey] = input.value;
+                }.bind(this)
+            },
+            value: this.options[optionKey]
+        }, options));
+        return this.inputWrapper(label, input);
+    },
+    textarea: function(label, optionKey, options){
+        var input = new Element('textarea', Object.merge({
+            events: {
+                keyup: function(){
+                    this.options[optionKey] = input.value;
+                }.bind(this)
+            },
+            value: this.options[optionKey]
+        }, options));
+        return this.inputWrapper(label, input);
+    },
+    select: function(label, optionKey, optionKeyValuePairs, selectConf){
+        var input = new Element('select', Object.merge({
+            events: {
+                change: function(){
+                    this.options.level = input.options[ input.selectedIndex ].value;
+                }.bind(this)
+            }
+        }, selectConf));
+        Object.each(optionKeyValuePairs, function(text, value){
+            var optionConf = { value: value, text: text };
+            if(value == this.options[optionKey]) optionConf.selected = 'selected';
+            new Element('option', optionConf).inject(input);
+        }.bind(this));
+        return this.inputWrapper(label, input);
+    },
+    inputWrapper: function(label, input, options){
+        var wrapper = Element('div', Object.merge({
+            'class': 'input'
+        }, options));
+        new Element('label', {
+            text: label
+        }).inject(wrapper);
+        input.inject(wrapper);
+        return wrapper;
     }
 });

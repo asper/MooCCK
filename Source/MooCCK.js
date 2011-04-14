@@ -34,6 +34,7 @@ var MooCCK = new Class({
         if(!this.setPath()) return;
         this.setOptions(options);
         this.element.store('cck', this);
+        this.element.addClass('moo_cck', this);
         if(MooCCK_BaseModuleLoaded){
             this.loadModules();
         }
@@ -116,23 +117,35 @@ var MooCCK = new Class({
         var cckLinks = new Element('p', {
             'class': 'cck_links'
         });
-        this.switchLink('Switch all').inject(cckLinks);
-        this.switchLink('HTML', 'html').inject(cckLinks);
-        this.switchLink('Form', 'form').inject(cckLinks);
+        this.switchLink('Switch', {
+            cssClass: 'switch_mode'
+        }).inject(cckLinks);
+        this.switchLink('HTML', {
+            mode: 'html',
+            cssClass: 'html'
+        }).inject(cckLinks);
+        this.switchLink('Form', {
+            mode: 'form',
+            cssClass: 'form'
+        }).inject(cckLinks);
         this.saveLink('Save').inject(cckLinks);
         this.addLink('Add').inject(cckLinks);
         cckLinks.inject(this.element);
     },
-    switchLink: function(text, mode){
+    switchLink: function(text, options){
+        options = Object.merge({
+            mode: null,
+            cssClass: null
+        }, options);
         text = [text, 'Switch'].pick();
-        mode = [mode, null].pick();
         return new Element('a', {
             text: text,
             href: '#',
+            'class': options.cssClass,
             events: {
                 click: function(e){
                     e.preventDefault();
-                    this.switchMode(mode);
+                    this.switchMode(options.mode);
                 }.bind(this)
             }
         });
@@ -157,6 +170,7 @@ var MooCCK = new Class({
         return new Element('a', {
             text: text,
             href: '#',
+            'class': 'save',
             events: {
                 click: function(e){
                     e.preventDefault();
@@ -170,14 +184,16 @@ var MooCCK = new Class({
         return new Element('a', {
             text: text,
             href: '#',
+            'class': 'add',
             events: {
                 click: function(e){
                     e.preventDefault();
                     var select = new Element('select', {
                         events: {
                             change: function(){
-                                var options = { mode: 'form' };
-                                this.modules.push( new window['MooCCK_'+select.options[select.selectedIndex].value](this.element, options) );
+                                var type = select.options[select.selectedIndex].value;
+                                var options = { mode: 'form', type: type };
+                                this.modules.push( new window['MooCCK_'+type](this.element, options) );
                                 this.update();
                             }.bind(this)
                         }

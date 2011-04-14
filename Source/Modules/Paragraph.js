@@ -18,15 +18,7 @@ var MooCCK_Paragraph = new Class({
     
     form: function(){
         var form = new Element('div');
-        var text = new Element('input', {
-            type: 'text',
-            events: {
-                keyup: function(){
-                    this.options.text = text.value;
-                }.bind(this)
-            },
-            value: this.options.text
-        }).inject(form);
+        var textarea = this.textarea('Paragraph content', 'text', {rows: 10}).inject(form);
         return form;
     }
     
