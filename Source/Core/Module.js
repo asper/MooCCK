@@ -1,68 +1,73 @@
 
-MooCCK.Module = {};
+MooCCK.load({core: 'Toolbar'});
 
-MooCCK.Core.Module = new Class({
-    Implements: Options,
-    mode: 'display',
-    name: 'Module',
+MooCCK.Modules = {};
+
+MooCCK.Module = new Class({
+    editor: null,
+    data: {},
+    type: null,
+    key: null,
+    element: null,
     inputs: {},
-    options: {
-        inputs: {}
+    _inputs: {},
+    form: null,
+    toolbar: null,
+    initialize: function(editor, data){
+        this.setup(editor, data);
     },
-    initialize: function(editor, options){
+    setup: function(editor, data){
         this.editor = editor;
-        this.setOptions(options);
-        this.inputs = Object.map(this.inputs, function(input, key){
-            if(this.options.inputs[key] !== undefined){
-                input.value = this.options.inputs[key];
-            }
-            MooCCK.load( 'MooCCK.Input.'+input.type );
-            return new MooCCK.Input[input.type](this, input);
-        }, this);
-        this.wrapper = new Element('div', {
-            'class': 'module '+this.name
+        this.key = String.uniqueID();
+        this.data =  [data, {}].pick();
+        this.element = new Element('div', {
+            'class': 'moo_cck_module'
         });
-        this.form = this.buildForm();
-    },
-    buildForm: function(){
-        var fieldset = new Element('fieldset');
-        new Element('legend', { text: this.name }).inject(fieldset);
-        Object.each(this.inputs, function(input){
-            input.toElement().inject(fieldset);
-        });
-        return fieldset;
+        this.buildForm();
+        this.buildToolbar();
+        this.editor.modules[this.key] = this;
+        this.inject(this.editor.container);
+        this.editor.fireEvent('moduleAdd', [this]);
+        return this;
     },
     toElement: function(){
-        return this.wrapper;
+        return this.element;
     },
-    update: function(){
-        var content = this.mode == 'form' ? this.form : this.display();
-        this.wrapper.empty().removeClass('form').removeClass('display').addClass(this.mode);
-        content.inject(this.wrapper);
+    inject: function(element){
+        return this.element.inject(element);
+    },
+    buildForm: function(){
+        this.form = new Element('fieldset', {
+            'class': 'moo_cck_fieldset'
+        });
+        new Element('legend', {
+            text: this.type,
+            'class': 'moo_cck_legend'
+        }).inject(this.form);
+        Object.each(this.inputs, function(input, key){
+            MooCCK.load({input: input.type});
+            new MooCCK.Inputs[input.type](this, key, input.options).inject(this.form);
+        }, this);
+        this.form.inject(this.element);
         return this;
     },
-    display: function(){
-        return new Element('div');
+    buildToolbar: function(){
+        this.toolbar = new MooCCK.Toolbar();
+        this.toolbar.button('Delete', 'delete', this.del.bind(this));
+        this.toolbar.inject(this.element);
+    },
+    del: function(){
+        this.element.destroy();
+        delete this.editor.modules[this.key];
     },
     save: function(){
-        var conf = { type: this.options.type, inputs: {} };
-        Object.each(this.inputs, function(input, key){
-            conf.inputs[key] = input.save();
+        var data = {};
+        Object.each(this._inputs, function(input, key){
+            data[key] = input.save();
         });
-        return conf;
-    },
-    toolbar: function(){
-        MooCCK.load('MooCCK.Core.Toolbar');
-        var toolbar = new MooCCK.Core.Toolbar();
-        toolbar.button('Toggle mode', this.toggleMode.bind(this));
-        return toolbar;
-    },
-    changeMode: function( mode ){
-        if(mode === undefined){
-            mode = this.mode == 'form' ? 'display' : 'form';
-        }
-        this.mode = mode;
-        this.update();
-        return this;
+        return {
+            type: this.type,
+            data: data
+        };
     }
 });

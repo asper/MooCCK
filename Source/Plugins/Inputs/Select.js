@@ -1,7 +1,7 @@
 
-MooCCK.load('MooCCK.Core.Input');
+MooCCK.load({core: 'Input'});
 
-MooCCK.Input.Select = new Class({
+MooCCK.Inputs.Select = new Class({
     Extends: MooCCK.Core.Input,
     initialize: function(module, options){
         this.parent(module, options);

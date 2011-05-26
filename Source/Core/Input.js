@@ -1,28 +1,45 @@
 
-MooCCK.Input = {};
+MooCCK.Inputs = {};
 
-MooCCK.Core.Input = new Class({
-    element: null,
-    Implements: Options,
+MooCCK.Input = new Class({
+    Implements: [ Events, Options ],
     module: null,
     options: {
-        id: null,
         label: null,
         value: null
     },
-    initialize: function( module, options ){
-        this.setOptions(options);
-        this.options.id = String.uniqueID();
+    type: null,
+    key: null,
+    value: null,
+    element: null,
+    initialize: function(module, key, options){
+        this.setup(module, key, options);
+    },
+    setup: function(module, key, options){
         this.module = module;
+        this.key = key;
+        this.setOptions(options);
+        this.value = this.module.data[key] ? this.module.data[key] : this.options.value;
         this.element = new Element('div', {
-            'class': 'input'
+            'class': 'moo_cck_input '+this.type+' '+this.key
         });
-        this.element.label = new Element('label', {text: this.options.label, 'for': this.options.id}).inject(this.element);
+        if(this.options.label){
+            new Element('label', {
+                text: this.options.label,
+                'for': this.key+'_'+this.module.key
+            }).inject(this.element);
+        }
+        this.module._inputs[this.key] = this;
+        this.inject(this.module.form);
+        return this;
     },
     toElement: function(){
         return this.element;
     },
+    inject: function(element){
+        return this.element.inject(element);
+    },
     save: function(){
-        return this.options.value;
+        return this.value;
     }
 });

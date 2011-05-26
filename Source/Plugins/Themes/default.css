@@ -1,0 +1,54 @@
+
+
+.moo_cck {
+    position: relative;
+}
+.moo_cck:hover {
+    outline: 1px dotted #ccc;
+    outline-offset: 5px;
+}
+.moo_cck.moo_cck_loading {
+    content: "Loading ...";
+}
+
+/**
+ * Module
+ */
+.moo_cck_module {
+    position: relative;
+}
+.moo_cck:hover {
+    outline: 1px dotted #ccc;
+}
+
+/**
+ * Form
+ */
+
+.moo_cck_input label {
+    display: block;
+}
+.moo_cck_input.Text input,
+.moo_cck_input.Textarea textarea {
+    border: 1px solid #ccc;
+    padding: 1em;
+    width: 90%;
+}
+
+/**
+ * Toolbars
+ */
+.moo_cck_toolbar {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.moo_cck_toolbar li {
+    display: inline-block;
+}
+.moo_cck_toolbar li a {
+    display: block;
+}
+
