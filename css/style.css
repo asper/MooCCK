@@ -1,0 +1,48 @@
+html {
+    background: #f5f5f5;
+    padding: 20px;
+}
+body {
+    width: 620px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #fcfcfc;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+h1 {
+    font-family: sans-serif;
+    color: #000;
+}
+header h1 {
+    font-size: 2em;
+}
+article h1 {
+    font-size: 1.5em;
+}
+h1, h2, h3, h4, h5, h6, p, pre {
+    margin: 0 0 0.75em 0;
+    padding: 0;
+}
+p, pre {
+    margin: 0 0 1.5em 0;
+}
+pre {
+    background: #333;
+    border-left: 5px solid tomato;
+    overflow-y: auto;
+    color: #ccc;
+    padding: 10px;
+}
+code {
+    font-family: monospace;
+}
+.var,
+.class,
+.function {
+    color: DodgerBlue ;
+}
+.string {
+    color: YellowGreen;
+}
