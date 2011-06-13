@@ -1,31 +1,31 @@
 
 
+MooCCK.load({core: 'Module'});
 
-MooCCK.load('MooCCK.Core.Module');
-
-MooCCK.Module.HtmlElement = new Class({
-    Extends: MooCCK.Core.Module,
-    name: 'HtmlElement',
+MooCCK.Modules.HtmlElement = new Class({
+    Extends: MooCCK.Module,
+    type: 'HtmlElement',
     inputs: {
         type: { 
-            label: 'Type',
             type: 'Select', 
             options: {  
-                'p': 'Paragraph',
-                'div': 'Div', 
-                'blockquote': 'Blockquote', 
-                'h1': 'H1', 
-                'h2': 'H2', 
-                'h3': 'H3', 
-                'h4': 'H4', 
-                'h5': 'H5', 
-                'h6': 'H6'
+                label: 'Type',
+                options: {
+                    'p': 'Paragraph',
+                    'div': 'Div', 
+                    'blockquote': 'Blockquote', 
+                    'h1': 'H1', 
+                    'h2': 'H2', 
+                    'h3': 'H3', 
+                    'h4': 'H4', 
+                    'h5': 'H5', 
+                    'h6': 'H6'
+                }
             }
         },
-        content: { type: 'Textarea', label: 'Content', value: 'Lorem ipsum...' }
+        content: { type: 'Textarea', options: {label: 'Content of the paragraph', value: 'Lorem ipsum...'} }
     },
-    display: function(){
-        console.log(this.inputs.type);
-        return new Element(this.inputs.type.options.value, {text: this.inputs.content.options.value});
+    preview: function(){
+        return new Element(this._inputs.type.value, {text: this._inputs.type.value});
     }
 });

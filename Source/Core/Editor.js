@@ -7,7 +7,7 @@ MooCCK.Editor = new Class({
     options: {
         theme: 'default',
         data: [],
-        modules: ['Paragraph'],
+        modules: ['Paragraph', 'HtmlElement'],
         onSave: function(){}
     },
     modules: {},
@@ -44,6 +44,14 @@ MooCCK.Editor = new Class({
         this.fireEvent('save', [data, this]);
         return this;
     },
+    preview: function(){
+        Object.each(this.modules, function(module, key){
+            if(module.mode != 'preview'){
+                module.mode = 'preview';
+                module.update();
+            }
+        });
+    },
     addModule: function(type, data){
         MooCCK.load({module: type});
         new MooCCK.Modules[type](this, data);
@@ -55,8 +63,9 @@ MooCCK.Editor = new Class({
     buildToolbar: function(){
         this.toolbar = new MooCCK.Toolbar();
         this.toolbar.button('Save', 'save', this.save.bind(this));
-        this.toolbar.select('Add', 'add', [{ text:'Paragraph', value: 'Paragraph' }], function(elementType){
+        this.toolbar.select('Add', 'add', [{ text:'Paragraph', value: 'Paragraph' }, { text:'HtmlElement', value: 'HtmlElement' }], function(elementType){
             this.addModule(elementType);
         }.bind(this));
+        this.toolbar.button('Preview', 'preview', this.preview.bind(this));
     }
 });

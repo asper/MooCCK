@@ -52,7 +52,7 @@ MooCCK.Loader = {
                 new Element('link', {
                     rel: 'stylesheet',
                     type: 'text/css',
-                    href: MooCCK.Loader.path+'Plugins/Themes/'+file+'.css'
+                    href: MooCCK.Loader.path+'Plugins/Themes/'+file+'/style.css'
                 }).inject(document.getElement('head'));
                 MooCCK.Loader.loaded.themes.push(file);
             }

@@ -8,8 +8,8 @@ MooCCK.Toolbar = new Class({
     toElement: function(){
         return this.element;
     },
-    inject: function(element){
-        return this.element.inject(element);
+    inject: function(element, where){
+        return this.element.inject(element, where);
     },
     li: function(element){
         var li = new Element('li');
@@ -32,8 +32,10 @@ MooCCK.Toolbar = new Class({
         return this;
     },
     select: function(text, cssClass, options, callback){
+        var span = new Element('span', {
+            'class': cssClass
+        });
         var select = new Element('select', {
-            'class': cssClass,
             'name': cssClass,
             events: {
                 change: function(e){
@@ -42,7 +44,8 @@ MooCCK.Toolbar = new Class({
                     this.selectedIndex = 0;
                 }
             }
-        });
+        }).inject(span);
+        select.selectedIndex = 0;
         new Element('option', {
             text: text,
             disabled: 'disabled',
@@ -51,7 +54,7 @@ MooCCK.Toolbar = new Class({
         options.each(function(option){
             new Element('option', option).inject(select);
         });
-        this.li(select);
+        this.li(span);
         return this;
     }
 });

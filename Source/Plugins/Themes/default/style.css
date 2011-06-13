@@ -1,0 +1,95 @@
+
+
+.moo_cck {
+    position: relative;
+}
+.moo_cck:hover {
+    outline: 1px dotted #ccc;
+    outline-offset: 1px;
+}
+.moo_cck.moo_cck_loading {
+    content: "Loading ...";
+}
+
+/**
+ * Module
+ */
+.moo_cck_module {
+    position: relative;
+}
+.moo_cck_module:hover {
+    outline: 1px dotted #ccc;
+    outline-offset: 1px;
+}
+
+/**
+ * Form
+ */
+
+.moo_cck_input label {
+    display: block;
+}
+.moo_cck_input.Text input,
+.moo_cck_input.Textarea textarea {
+    border: 1px solid #ccc;
+    padding: 1em;
+    width: 90%;
+}
+
+/**
+ * Toolbars
+ */
+.moo_cck_toolbar {
+    margin: 0;
+    padding: 0;
+}
+.moo_cck_toolbar li {
+    display: inline-block;
+    list-style-type: none;
+}
+.moo_cck_toolbar li a,
+.moo_cck_toolbar li span {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    background-color: #ccc;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.moo_cck_toolbar li a {
+    width: 30px;
+    text-indent: -500px;
+}
+.moo_cck_toolbar li a:hover,
+.moo_cck_toolbar li span:hover {
+    opacity: 1;
+}
+/* Main Toolbar */
+.moo_cck:hover .moo_cck_toolbar {
+    display: block;
+}
+/* Module Toolbar */
+.moo_cck_module .moo_cck_toolbar {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.moo_cck:hover .moo_cck_module .moo_cck_toolbar {
+    display: none;
+}
+.moo_cck:hover .moo_cck_module:hover .moo_cck_toolbar {
+    display: block;
+}
+
+
+.moo_cck_toolbar .save {
+    background-image: url(img/disk.png);
+}
+.moo_cck_toolbar .delete {
+    background-image: url(img/delete.png);
+}
+.moo_cck_toolbar .edit {
+    background-image: url(img/pencil.png);
+}

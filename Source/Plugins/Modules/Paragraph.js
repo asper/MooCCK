@@ -8,7 +8,7 @@ MooCCK.Modules.Paragraph = new Class({
     inputs: {
         content: { type: 'Textarea', options: {label: 'Content of the paragraph', value: 'Lorem ipsum...'} }
     },
-    display: function(){
-        return new Element('p', {text: this._inputs.content.value});
+    preview: function(){
+        return new Element('p', {html: this._inputs.content.value.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '<br />')});
     }
 });
