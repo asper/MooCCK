@@ -26,6 +26,6 @@ MooCCK.Modules.HtmlElement = new Class({
         content: { type: 'Textarea', options: {label: 'Content of the paragraph', value: 'Lorem ipsum...'} }
     },
     preview: function(){
-        return new Element(this._inputs.type.value, {text: this._inputs.type.value});
+        return new Element(this._inputs.type.value, {html: this._inputs.content.value.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '<br />')});
     }
 });

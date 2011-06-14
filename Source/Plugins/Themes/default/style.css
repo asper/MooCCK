@@ -4,8 +4,8 @@
     position: relative;
 }
 .moo_cck:hover {
-    outline: 1px dotted #ccc;
-    outline-offset: 1px;
+    outline: 1px dotted #FA6900;
+    outline-offset: 5px;
 }
 .moo_cck.moo_cck_loading {
     content: "Loading ...";
@@ -18,22 +18,8 @@
     position: relative;
 }
 .moo_cck_module:hover {
-    outline: 1px dotted #ccc;
-    outline-offset: 1px;
-}
-
-/**
- * Form
- */
-
-.moo_cck_input label {
-    display: block;
-}
-.moo_cck_input.Text input,
-.moo_cck_input.Textarea textarea {
-    border: 1px solid #ccc;
-    padding: 1em;
-    width: 90%;
+    outline: 1px dotted #69D2E7;
+    outline-offset: 5px;
 }
 
 /**
@@ -42,6 +28,7 @@
 .moo_cck_toolbar {
     margin: 0;
     padding: 0;
+    padding-top: 10px;
 }
 .moo_cck_toolbar li {
     display: inline-block;
@@ -52,10 +39,33 @@
     display: block;
     height: 30px;
     line-height: 30px;
-    background-color: #ccc;
+    background-color: #eee;
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;
+    border-right: 1px solid #ddd;
+}
+.moo_cck_toolbar li.first a,
+.moo_cck_toolbar li.first span {
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;    
+}
+.moo_cck_toolbar li.last a,
+.moo_cck_toolbar li.last span {
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; 
+    border-right: 0;
+}
+.moo_cck_toolbar li span {
+    padding: 0 5px;
 }
 .moo_cck_toolbar li a {
     width: 30px;
@@ -75,6 +85,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    padding-top: 0;
 }
 .moo_cck:hover .moo_cck_module .moo_cck_toolbar {
     display: none;
@@ -92,4 +103,36 @@
 }
 .moo_cck_toolbar .edit {
     background-image: url(img/pencil.png);
+}
+
+/**
+ * Form
+ */
+.moo_cck_fieldset {
+    margin: 0 0 20px 0;
+    padding: 20px 10px 0 10px;
+    border: 1px solid #ccc;
+}
+.moo_cck_fieldset legend {
+    margin: 0;
+    padding: 0 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.moo_cck_input {
+    margin-bottom: 10px;
+}
+.moo_cck_input label {
+    display: block;
+}
+
+/**
+ * Inputs
+ */
+
+.moo_cck_input textarea {
+    width: 96%;
+    padding: 2%;
+    border: 1px solid #ccc;
+    height: 12em;
 }

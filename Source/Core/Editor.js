@@ -63,7 +63,10 @@ MooCCK.Editor = new Class({
     buildToolbar: function(){
         this.toolbar = new MooCCK.Toolbar();
         this.toolbar.button('Save', 'save', this.save.bind(this));
-        this.toolbar.select('Add', 'add', [{ text:'Paragraph', value: 'Paragraph' }, { text:'HtmlElement', value: 'HtmlElement' }], function(elementType){
+        this.toolbar.select('Add', 'add', [
+            { text:'Paragraph', value: 'Paragraph' }, 
+            { text:'HtmlElement', value: 'HtmlElement' }
+        ], function(elementType){
             this.addModule(elementType);
         }.bind(this));
         this.toolbar.button('Preview', 'preview', this.preview.bind(this));

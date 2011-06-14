@@ -6,10 +6,16 @@ MooCCK.Toolbar = new Class({
         });
     },
     toElement: function(){
+        var lis = this.element.getElements('li');
+        if(lis){
+            lis.removeClass('first').removeClass('last');
+            lis[0].addClass('first');
+            lis[lis.length-1].addClass('last');
+        }
         return this.element;
     },
     inject: function(element, where){
-        return this.element.inject(element, where);
+        return this.toElement().inject(element, where);
     },
     li: function(element){
         var li = new Element('li');

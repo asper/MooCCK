@@ -2,22 +2,22 @@
 MooCCK.load({core: 'Input'});
 
 MooCCK.Inputs.Select = new Class({
-    Extends: MooCCK.Core.Input,
-    initialize: function(module, options){
-        this.parent(module, options);
+    Extends: MooCCK.Input,
+    type: 'Select',
+    initialize: function(module, key, options){
+        this.parent(module, key, options);
         var select = new Element('select', {
-            type: 'text',
-            id: this.options.id,
-            name: this.options.id
+            id: this.key,
+            name: this.key
         });
         Object.each(this.options.options, function(text, value){
             var optionConf = { value: value, text: text };
-            if(value == this.options.value) optionConf.selected = 'selected';
+            if(value == this.value) optionConf.selected = 'selected';
             new Element('option', optionConf).inject(select);
         }, this);
-        this.options.value = select.options[select.selectedIndex].value; 
+        this.value = select.options[select.selectedIndex].value; 
         select.addEvent('change', function(){ 
-            this.options.value = select.options[select.selectedIndex].value; 
+            this.value = select.options[select.selectedIndex].value; 
         }.bind(this)).inject(this.element);
     }
 });
