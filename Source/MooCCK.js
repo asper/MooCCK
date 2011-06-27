@@ -1,6 +1,16 @@
 /**
  * MooCCK
  * 
+ * Dependencies :
+ * - Mootools Core 1.3.2
+ * - Mootools More/Object.Extras
+ * - Mootools More/Drag
+ * - Mootools More/Drag.Move
+ * - Mootools More/Sortables
+ * - Mootools More/Request.JSONP
+ * - Mootools More/Locale
+ * - Mootools More/Tips
+ * 
  */
  
 /**

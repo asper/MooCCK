@@ -3,10 +3,6 @@
 .moo_cck {
     position: relative;
 }
-.moo_cck:hover {
-    outline: 1px dotted #FA6900;
-    outline-offset: 5px;
-}
 .moo_cck.moo_cck_loading {
     content: "Loading ...";
 }
@@ -18,7 +14,7 @@
     position: relative;
 }
 .moo_cck_module:hover {
-    outline: 1px dotted #69D2E7;
+    outline: 1px dotted #ccc;
     outline-offset: 5px;
 }
 
@@ -40,7 +36,7 @@
     height: 30px;
     line-height: 30px;
     background-color: #eee;
-    background-position: center center;
+    background-position: 7px center;
     background-repeat: no-repeat;
     overflow: hidden;
     border-right: 1px solid #ddd;
@@ -68,16 +64,13 @@
     padding: 0 5px;
 }
 .moo_cck_toolbar li a {
-    width: 30px;
-    text-indent: -500px;
+    padding: 0 10px 0 30px;
+    color: #333;
+    text-decoration: none;
 }
 .moo_cck_toolbar li a:hover,
 .moo_cck_toolbar li span:hover {
     opacity: 1;
-}
-/* Main Toolbar */
-.moo_cck:hover .moo_cck_toolbar {
-    display: block;
 }
 /* Module Toolbar */
 .moo_cck_module .moo_cck_toolbar {
@@ -87,10 +80,7 @@
     right: 0;
     padding-top: 0;
 }
-.moo_cck:hover .moo_cck_module .moo_cck_toolbar {
-    display: none;
-}
-.moo_cck:hover .moo_cck_module:hover .moo_cck_toolbar {
+.moo_cck_module:hover .moo_cck_toolbar {
     display: block;
 }
 
@@ -98,11 +88,17 @@
 .moo_cck_toolbar .save {
     background-image: url(img/disk.png);
 }
+.moo_cck_toolbar .close {
+    background-image: url(img/disk.png);
+}
 .moo_cck_toolbar .delete {
-    background-image: url(img/delete.png);
+    background-image: url(img/application_delete.png);
 }
 .moo_cck_toolbar .edit {
-    background-image: url(img/pencil.png);
+    background-image: url(img/application_form.png);
+}
+.moo_cck_toolbar .order {
+    background-image: url(img/application_cascade.png);
 }
 
 /**
@@ -125,6 +121,11 @@
 .moo_cck_input label {
     display: block;
 }
+.moo_cck_fieldset .moo_cck_toolbar {
+    top: 20px;
+    right: 10px;
+    display: block;
+}
 
 /**
  * Inputs
@@ -135,4 +136,16 @@
     padding: 2%;
     border: 1px solid #ccc;
     height: 12em;
+}
+
+.moo_cck_ordering .moo_cck_module:hover .moo_cck_toolbar {
+    display: none;
+}
+
+
+.moo_cck_tip {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #888;
 }

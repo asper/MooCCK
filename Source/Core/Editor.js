@@ -11,6 +11,7 @@ MooCCK.Editor = new Class({
         onSave: function(){}
     },
     modules: {},
+    sortables: null,
     initialize: function(element, options){
         this.setup(element, options);
     },
@@ -27,6 +28,11 @@ MooCCK.Editor = new Class({
         }, this);
         this.container.inject(this.element);
         this.buildToolbar();
+        this.sortables = new Sortables(this.container, {
+            clone: true,
+            opacity: 0.7
+        });
+        this.buildSortableToolbar();
         this.toolbar.inject(this.element);
         return this;
     },
@@ -44,17 +50,30 @@ MooCCK.Editor = new Class({
         this.fireEvent('save', [data, this]);
         return this;
     },
-    preview: function(){
+    order: function(){
         Object.each(this.modules, function(module, key){
             if(module.mode != 'preview'){
                 module.mode = 'preview';
                 module.update();
             }
         });
+        this.element.addClass('moo_cck_ordering');
+        this.toolbar.toElement().dispose();
+        this.sortableToolbar.inject(this.element);
+        this.sortables.attach();
+    },
+    buildSortableToolbar: function(){
+        this.sortableToolbar = new MooCCK.Toolbar();
+        this.sortableToolbar.button('Revert', 'order', function(){
+            this.sortables.detach();
+            this.sortableToolbar.toElement().dispose();
+            this.toolbar.inject(this.element);
+            this.element.removeClass('moo_cck_ordering');
+        }.bind(this));
     },
     addModule: function(type, data){
         MooCCK.load({module: type});
-        new MooCCK.Modules[type](this, data);
+        var mod = new MooCCK.Modules[type](this, data);
         return this;
     },
     deleteModule: function(key){
@@ -62,13 +81,13 @@ MooCCK.Editor = new Class({
     },
     buildToolbar: function(){
         this.toolbar = new MooCCK.Toolbar();
-        this.toolbar.button('Save', 'save', this.save.bind(this));
         this.toolbar.select('Add', 'add', [
             { text:'Paragraph', value: 'Paragraph' }, 
             { text:'HtmlElement', value: 'HtmlElement' }
         ], function(elementType){
             this.addModule(elementType);
         }.bind(this));
-        this.toolbar.button('Preview', 'preview', this.preview.bind(this));
+        this.toolbar.button('Reorder', 'order', this.order.bind(this));
+        this.toolbar.button('Save', 'save', this.save.bind(this));
     }
 });

@@ -1,9 +1,11 @@
 
 MooCCK.Toolbar = new Class({
+    tips: null,
     initialize: function(){
         this.element = new Element('ul', {
             'class': 'moo_cck_toolbar'
         });
+        //this.tips = new Tips(null, {className: 'moo_cck_tip'});
     },
     toElement: function(){
         var lis = this.element.getElements('li');
@@ -17,16 +19,20 @@ MooCCK.Toolbar = new Class({
     inject: function(element, where){
         return this.toElement().inject(element, where);
     },
-    li: function(element){
+    li: function(text, element){
         var li = new Element('li');
         element.inject(li); 
         li.inject(this.element);
+        //li.store('tip:title', text);
+        //this.tips.attach(li);
         return li;
     },
     button: function(text, cssClass, callback){
-        this.li(new Element('a', {
+        callback = [callback, function(){}].pick();
+        this.li(text, new Element('a', {
             text: text,
             'class': cssClass,
+            'id': cssClass,
             'href': '#',
             events: {
                 click: function(e){
@@ -60,7 +66,7 @@ MooCCK.Toolbar = new Class({
         options.each(function(option){
             new Element('option', option).inject(select);
         });
-        this.li(span);
+        this.li(text, span);
         return this;
     }
 });

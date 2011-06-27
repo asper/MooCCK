@@ -55,12 +55,12 @@ MooCCK.Module = new Class({
     },
     formToolbar: function(){
         this._formToolbar = new MooCCK.Toolbar();
-        this._formToolbar.button('Delete', 'delete', this.del.bind(this));
         this._formToolbar.button('Close', 'close', this.close.bind(this));
         return this._formToolbar;
     },
     viewToolbar: function(){
         this._viewToolbar = new MooCCK.Toolbar();
+        this._viewToolbar.button('Delete', 'delete', this.del.bind(this));
         this._viewToolbar.button('Edit', 'edit', this.edit.bind(this));
         return this._viewToolbar;
     },
@@ -69,12 +69,19 @@ MooCCK.Module = new Class({
         delete this.editor.modules[this.key];
     },
     close: function(){
-        this.mode = 'preview';
-        this.update();
+        if(this.mode != 'preview'){
+            this.mode = 'preview';
+            this.update();
+        }
     },
     edit: function(){
-        this.mode = 'form';
-        this.update();
+        if(this.mode != 'form'){
+            Object.each(this.editor.modules, function(module, i){
+                module.close();
+            });
+            this.mode = 'form';
+            this.update();
+        }
     },
     save: function(){
         var data = {};
